@@ -1,19 +1,11 @@
 import { Hono } from "hono";
+import { serveStatic } from "hono/cloudflare-workers";
+import users from "./users";
+const app = new Hono();
 
-type Bindings = {
-  DB: D1Database;
-};
+app.use("/favicon.ico", serveStatic({ path: "./favicon.png" }));
+app.use("/", serveStatic({ root: "./" }));
 
-const app = new Hono<{ Bindings: Bindings }>();
-app.get("/", (c) => c.text("Hello Hono!"));
-app.get("/about", (c) => c.text("About Hono!"));
-app.get("/users", async (c) => {
-  try {
-    let { results } = await c.env.DB.prepare("SELECT * FROM users").all()
-    return c.json(results)
-  } catch (e) {
-    return c.json({err: e}, 500)
-  }
-});
+app.route("/users", users);
 
 export default app;
