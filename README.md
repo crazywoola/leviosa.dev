@@ -2,10 +2,18 @@
 
 ### Quick Start
 
+#### Worker
 ```
 npm install
 cp wrangler.toml.example wrangler.toml
 npm run dev
+```
+#### Site
+
+We use esbuild & hotwire.dev to build the frontend site. Modify the code in `src/client`.
+
+```
+npm run build:fe
 ```
 
 ### Database
