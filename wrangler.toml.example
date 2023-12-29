@@ -1,5 +1,9 @@
 name = "leviosa"
 compatibility_date = "2023-01-01"
+main = "src/index.ts"
+
+[site]
+bucket = "./assets"
 
 # [vars]
 # MY_VARIABLE = "production_value"
@@ -12,7 +16,8 @@ compatibility_date = "2023-01-01"
 # binding = "MY_BUCKET"
 # bucket_name = "my-bucket"
 
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "my-database"
-# database_id = ""
+[[d1_databases]]
+binding = "DB"
+database_name = "MY_DB"
+database_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
