@@ -3,7 +3,13 @@ import { serveStatic } from "hono/cloudflare-workers";
 import users from "./users";
 const app = new Hono();
 
-app.use("/*", serveStatic({ root: "./" }));
+// Serve static files
+app.use('/media/*', serveStatic({ root: './' }))
+app.use('/css/*', serveStatic({ root: './' }))
+app.use('/js/*', serveStatic({ root: './' }))
+app.get('/favicon.ico', serveStatic({ path: './favicon.png' }))
+
+app.get('/',serveStatic({ path: './index.html' }))
 
 app.route("/users", users);
 
