@@ -10,7 +10,7 @@ app.use('/js/*', serveStatic({ root: './' }))
 app.get('/favicon.ico', serveStatic({ path: './favicon.png' }))
 
 app.get('/',serveStatic({ path: './index.html' }))
-
+app.get('/about',serveStatic({ path: './about.html' }))
 app.route("/users", users);
 
 export default app;

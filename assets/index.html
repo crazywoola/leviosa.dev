@@ -5,10 +5,13 @@
   <title>Leviosa</title>
   <!-- favicon -->
   <link rel="icon" href="favicon.png" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="./js/bundle.js" defer></script>
 </head>
 <body>
-  <div data-controller="app">
+  <div data-controller="hello" data-hello-url-value="/users/mock">
+    <div data-hello-target="loading" data-action="click->hello#load"></div>
+    <h1 data-hello-target="title"></h1>
   </div>
 </body>
 </html>

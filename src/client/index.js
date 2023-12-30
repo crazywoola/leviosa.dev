@@ -2,10 +2,27 @@ import { Application, Controller } from "@hotwired/stimulus"
 
 window.Stimulus = Application.start()
 
-class AppController extends Controller {
+class HelloController extends Controller {
+  static targets = ["loading", 'title']
+  static values = {
+    url: String
+  }
   connect() {
-    this.element.textContent = "Hello Stimulus!"
+    console.log("connect")
+    this.loadingTarget.innerHTML = "Loading..."
+    this.titleTarget.innerHTML = "Hello Stimulus!"
+    
+  }
+
+  load() {
+    console.log("load")
+    fetch(this.urlValue).then((response) => {
+      response.json().then((data) => {
+        this.loadingTarget.innerHTML = ""
+        console.log(data)
+      })
+    })
   }
 }
 
-window.Stimulus.register("app", AppController)
+window.Stimulus.register("hello", HelloController)
