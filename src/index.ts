@@ -7,7 +7,7 @@ const app = new Hono();
 app.use('/media/*', serveStatic({ root: './' }))
 app.use('/css/*', serveStatic({ root: './' }))
 app.use('/js/*', serveStatic({ root: './' }))
-app.get('/favicon.ico', serveStatic({ path: './favicon.png' }))
+app.get('/favicon.png', serveStatic({ path: './favicon.png' }))
 
 app.get('/',serveStatic({ path: './index.html' }))
 app.get('/about',serveStatic({ path: './about.html' }))

@@ -1,28 +1,29 @@
-import { Application, Controller } from "@hotwired/stimulus"
+import { Application, Controller } from "@hotwired/stimulus";
 
-window.Stimulus = Application.start()
+window.Stimulus = Application.start();
 
-class HelloController extends Controller {
-  static targets = ["loading", 'title']
+class OpeningController extends Controller {
+  static targets = ['title', 'description'];
   static values = {
-    url: String
-  }
+    title: String,
+    description: String
+  };
+
   connect() {
-    console.log("connect")
-    this.loadingTarget.innerHTML = "Loading..."
-    this.titleTarget.innerHTML = "Hello Stimulus!"
-    
+    this.animateElement(this.titleTarget, this.titleValue)
+        .then(() => this.animateElement(this.descriptionTarget, this.descriptionValue));
   }
 
-  load() {
-    console.log("load")
-    fetch(this.urlValue).then((response) => {
-      response.json().then((data) => {
-        this.loadingTarget.innerHTML = ""
-        console.log(data)
-      })
-    })
+  animateElement(element, value) {
+    const duration = value.length / 20 * 1000; // Convert seconds to milliseconds
+    element.innerHTML = value;
+    element.style.width = `${value.length}ch`;
+    element.style.animation = `typing ${duration / 1000}s steps(${value.length}), .5s step-end infinite alternate`;
+
+    return new Promise(resolve => {
+      setTimeout(resolve, duration);
+    });
   }
 }
 
-window.Stimulus.register("hello", HelloController)
+window.Stimulus.register("opening", OpeningController);
