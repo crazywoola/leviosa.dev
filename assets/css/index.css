@@ -1,8 +1,6 @@
 .opening {
-  height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 24px;
   flex-direction: column;
 }
 
@@ -10,7 +8,6 @@
   white-space: nowrap;
   overflow: hidden;
   font-family: monospace;
-  font-size: 2em;
 }
 
 @keyframes typing {
