@@ -7,8 +7,14 @@
   <link rel="icon" href="favicon.png" type="image/x-icon" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="./js/bundle.js" defer></script>
+  <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
+  <div class="wrapper">
+      <div class="typing-demo">
+        This is a typing demo. Banana.
+      </div>
+  </div>
   <div data-controller="hello" data-hello-url-value="/users/mock">
     <div data-hello-target="loading" data-action="click->hello#load"></div>
     <h1 data-hello-target="title"></h1>
