@@ -1,9 +1,3 @@
-.opening {
-  display: flex;
-  padding: 24px;
-  flex-direction: column;
-}
-
 .typing {
   white-space: nowrap;
   overflow: hidden;

@@ -3,7 +3,8 @@ import { Application, Controller } from "@hotwired/stimulus";
 window.Stimulus = Application.start();
 
 class OpeningController extends Controller {
-  static targets = ['title', 'subtitle', 'description'];
+  static classes = ['start'];
+  static targets = ['title', 'subtitle', 'description', 'btn'];
   static values = {
     title: String,
     subtitle: String,
@@ -12,8 +13,8 @@ class OpeningController extends Controller {
 
   connect() {
     this.animateElement(this.titleTarget, this.titleValue)
-        .then(() => this.animateElement(this.subtitleTarget, this.subtitleValue))
-        .then(() => this.animateElement(this.descriptionTarget, this.descriptionValue));   
+      .then(() => this.animateElement(this.subtitleTarget, this.subtitleValue))
+      .then(() => this.animateElement(this.descriptionTarget, this.descriptionValue));
   }
 
   animateElement(element, value) {
@@ -27,16 +28,28 @@ class OpeningController extends Controller {
       setTimeout(resolve, duration);
     });
   }
+
+  start() {
+    this.element.classList.toggle(this.startClass);
+    this.descriptionTarget.classList.toggle('hidden');
+  }
 }
 
 class InfoController extends Controller {
-  static targets = ['btn'];
+  static targets = ['btn', 'modal'];
   connect() {
   }
-  toggle(){
+  toggle() {
     this.btnTarget.classList.toggle('shadow-lg');
     this.btnTarget.classList.toggle('rounded-lg');
-    this.btnTarget.classList.toggle('bg-purple-400');
+    this.btnTarget.classList.toggle('bg-purple-200');
+    this.modalTarget.classList.toggle('hidden');
+  }
+  close() {
+    this.btnTarget.classList.remove('shadow-lg');
+    this.btnTarget.classList.remove('rounded-lg');
+    this.btnTarget.classList.remove('bg-purple-200');
+    this.modalTarget.classList.add('hidden');
   }
 }
 
