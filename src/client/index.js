@@ -31,7 +31,7 @@ class OpeningController extends Controller {
 
   start() {
     this.element.classList.toggle(this.startClass);
-    this.descriptionTarget.classList.toggle('hidden');
+    this.subtitleTarget.classList.toggle('hidden');
   }
 }
 
