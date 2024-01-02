@@ -53,5 +53,20 @@ class InfoController extends Controller {
   }
 }
 
+class MainController extends Controller {
+  static values = {
+    url: String
+  }
+
+  connect() {
+    fetch(this.urlValue).then(response => {
+      response.json().then(data => {
+        console.log(data);
+      });
+    });
+  }
+}
+
 window.Stimulus.register("opening", OpeningController);
 window.Stimulus.register("info", InfoController);
+window.Stimulus.register("main", MainController);
