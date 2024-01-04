@@ -3,6 +3,10 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import dayjs from "dayjs";
 
+const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
+const DEFAULT_DAY_FORMAT = "D";
+const WEEK_DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 // dayjs config
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -32,9 +36,8 @@ class OpeningController extends Controller {
     const duration = 0;
     element.innerHTML = value;
     element.style.width = `${value.length}ch`;
-    element.style.animation = `typing ${duration / 1000}s steps(${
-      value.length
-    }), .5s step-end infinite alternate`;
+    element.style.animation = `typing ${duration / 1000}s steps(${value.length
+      }), .5s step-end infinite alternate`;
 
     return new Promise((resolve) => {
       setTimeout(resolve, duration);
@@ -79,17 +82,15 @@ class MainController extends Controller {
   connect() {
     const today = dayjs();
     const firstDayOfMonth = today.startOf("month");
-    const daysInMonth = today.daysInMonth();
-    const paddingDaysCount = firstDayOfMonth.day();
-    const weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const daysArray = Array.from({ length: today.daysInMonth() }, (_, i) => firstDayOfMonth.add(i, 'day'));
 
     // Set the calendar title
     this.calendarMonthTarget.innerHTML = today.format("MMMM YYYY");
     // Create an array representing both padding days and actual days
     const calendarDays = [
-      ...weekdayNames, // Weekday names
-      ...Array(paddingDaysCount).fill(""), // Padding days
-      ...Array.from({ length: daysInMonth }, (_, i) => i + 1), // Actual days
+      ...WEEK_DAY_NAMES, // Weekday names
+      ...Array(firstDayOfMonth.day()).fill(""), // Padding days
+      ...daysArray
     ];
     // Use map to iterate over the array and create calendar elements
     calendarDays.map((day) => this.createCalendarElement(day));
@@ -97,19 +98,13 @@ class MainController extends Controller {
 
   show(evt) {
     const day = evt.params.day;
-    const formattedDay = dayjs().date(day);
-    // check the formatted day is valid or not
-    if (formattedDay.isValid()) {
-      this.selecedCalendarDateTarget.innerHTML =
-        formattedDay.format("DD MMMM YYYY");
-    }
+    console.log(day);
+    // const date = dayjs(day);
   }
 
   createCalendarElement(content) {
     const elem = document.createElement("div");
-    // add data-action="mouseover->main#open"
-    elem.setAttribute("data-action", "click->main#show");
-    elem.setAttribute("data-main-day-param", content);
+
     elem.classList.add(
       "border",
       "border-purple-600",
@@ -123,16 +118,22 @@ class MainController extends Controller {
       "rounded-md",
       "p-1"
     );
-
-    const day = dayjs().date(content);
-    if (day.day() === 0 || day.day() === 6) {
-      elem.classList.add("bg-purple-200");
+    // add data-action="mouseover->main#show" if content is a dayjs object
+    if (content instanceof dayjs) {
+      elem.setAttribute("data-action", "click->main#show");
+      elem.setAttribute("data-main-day-param", content.format(DEFAULT_DATE_FORMAT));
+      // if day is sunday or saturday, add bg-purple-200 class
+      if (content.day() === 0 || content.day() === 6) {
+        elem.classList.add("bg-purple-200");
+      }
+      // if day is today, add bg-purple-600 class
+      if (content.isSame(dayjs(), "day")) {
+        elem.classList.add("bg-purple-600", "text-white");
+      }
+      elem.innerHTML = content.format(DEFAULT_DAY_FORMAT);
+    } else {
+      elem.innerHTML = content;
     }
-
-    if (day.isSame(dayjs(), "day")) {
-      elem.classList.add("bg-purple-600", "text-white");
-    }
-    elem.innerHTML = content;
     this.calendarTarget.appendChild(elem);
   }
 }
