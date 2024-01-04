@@ -22,7 +22,7 @@
         data-opening-start-class="flex-col"
         data-opening-title-value="Leviosa.dev"
         data-opening-subtitle-value="It’s Leviosa, Not Leviosaaa!"
-        data-opening-description-value="Use Enchanting Spells to Create Magical Presentations"
+        data-opening-description-value="A simple calendar app for your daily life."
       >
         <div
           class="inline-flex items-center text-2xl text-purple-600"
@@ -46,9 +46,23 @@
       </section>
       <!-- Main content -->
       <section
-        class="flex border-purple-600 border grow mx-6 mb-20 flex-col"
+        class="flex border-purple-600 border grow mx-6 mb-20"
         data-controller="main"
-      ></section>
+      >
+        <!-- calendar  -->
+        <div class="flex w-1/2 flex-col gap-2 my-4">
+          <div class="flex w-full items-center justify-center text-2xl text-lead font-semibold text-purple-600" data-main-target="calendarMonth"></div>
+          <div
+            class="w-full h-full border-r border-purple-600 px-3 py-2 grid grid-cols-7 gap-1"
+            data-main-target="calendar"
+          ></div>
+        </div>
+        <div class="flex grow mt-12 p-4">
+          <div class="flex w-full h-full border border-purple-600">
+            <div class="flex items-center w-full h-full justify-center" data-main-target="calendarDetail"></div>
+          </div>
+        </div>
+      </section>
 
       <!-- Clickable about icon at bottom left -->
       <!-- <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div> -->

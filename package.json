@@ -1,8 +1,8 @@
 {
   "scripts": {
     "dev": "wrangler dev src/index.ts",
+    "dev:fe": "esbuild src/client/index.js --bundle --outfile=assets/js/bundle.js --watch",
     "build:fe": "esbuild src/client/index.js --bundle --minify --outfile=assets/js/bundle.js",
-    "build:fe:watch": "esbuild src/client/index.js --bundle --outfile=assets/js/bundle.js --watch",
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
