@@ -50,18 +50,26 @@
         data-controller="main"
       >
         <!-- calendar  -->
-        <div class="flex w-1/2 flex-col gap-2 my-4">
+        <div class="flex flex-col gap-2 my-4 w-1/2 shrink-0">
           <div class="flex w-full items-center justify-center text-2xl text-lead font-semibold text-purple-600" data-main-target="calendarMonth"></div>
           <div
-            class="w-full h-full border-r border-purple-600 px-3 py-2 grid grid-cols-7 gap-1"
+            class="w-full h-full border-r border-purple-600 px-3 py-2 grid grid-cols-7 gap-1 "
             data-main-target="calendar"
           ></div>
         </div>
-        <div class="flex grow mt-12 p-4">
-          <div class="flex w-full h-full border border-purple-600">
-            <div class="flex items-center w-full h-full justify-center text-3xl font-bold text-purple-600" data-main-target="calendarDetail"></div>
+
+        <div class="flex mt-12 p-4 ">
+          <div class="flex  border border-purple-600">
+            <div class="flex flex-col items-center justify-center" data-main-target="calendarDetail">
+              <div data-main-target="selecedCalendarDate" class="text-3xl font-bold text-purple-600"></div>
+              <div data-main-target="selectedCalendarContent" class="p-4 text-md text-lead">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet incidunt enim repellendus optio praesentium placeat, obcaecati asperiores corporis commodi tenetur dolor aperiam nam alias minus consequatur fugiat voluptas maiores deleniti.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima rem incidunt fugit hic at tenetur quia unde eaque dignissimos fuga, error veritatis blanditiis veniam reprehenderit asperiores culpa sed iure animi?
+              </div>
+            </div>
           </div>
         </div>
+
       </section>
 
       <!-- Clickable about icon at bottom left -->

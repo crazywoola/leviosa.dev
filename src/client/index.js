@@ -67,7 +67,13 @@ class InfoController extends Controller {
 }
 
 class MainController extends Controller {
-  static targets = ["calendar", "calendarMonth", "calendarDetail"];
+  static targets = [
+    "calendar",
+    "calendarMonth",
+    "calendarDetail",
+    "selecedCalendarDate",
+    "selectedCalendarContent",
+  ];
   static values = {};
 
   connect() {
@@ -91,24 +97,31 @@ class MainController extends Controller {
 
   show(evt) {
     const day = evt.params.day;
-    this.calendarDetailTarget.innerHTML = day;
+    const formattedDay = dayjs().date(day);
+    // check the formatted day is valid or not
+    if (formattedDay.isValid()) {
+      this.selecedCalendarDateTarget.innerHTML =
+        formattedDay.format("DD MMMM YYYY");
+    }
   }
 
   createCalendarElement(content) {
     const elem = document.createElement("div");
     // add data-action="mouseover->main#open"
-    elem.setAttribute("data-action", "mouseover->main#show");
+    elem.setAttribute("data-action", "click->main#show");
     elem.setAttribute("data-main-day-param", content);
     elem.classList.add(
       "border",
       "border-purple-600",
       "flex",
-      "justify-center",
-      "items-center",
       "text-purple-600",
       "cursor-pointer",
       "hover:bg-purple-600",
-      "hover:text-white"
+      "hover:text-white",
+      "shrink-0",
+      "shadow-md",
+      "rounded-md",
+      "p-1"
     );
 
     const day = dayjs().date(content);
