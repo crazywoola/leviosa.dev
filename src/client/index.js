@@ -67,7 +67,7 @@ class InfoController extends Controller {
 }
 
 class MainController extends Controller {
-  static targets = ["calendar", 'calendarMonth'];
+  static targets = ["calendar", "calendarMonth", "calendarDetail"];
   static values = {};
 
   connect() {
@@ -89,13 +89,16 @@ class MainController extends Controller {
     calendarDays.map((day) => this.createCalendarElement(day));
   }
 
-  show() {
-    console.log("show");
+  show(evt) {
+    const day = evt.params.day;
+    this.calendarDetailTarget.innerHTML = day;
   }
+
   createCalendarElement(content) {
     const elem = document.createElement("div");
     // add data-action="mouseover->main#open"
     elem.setAttribute("data-action", "mouseover->main#show");
+    elem.setAttribute("data-main-day-param", content);
     elem.classList.add(
       "border",
       "border-purple-600",
@@ -103,10 +106,19 @@ class MainController extends Controller {
       "justify-center",
       "items-center",
       "text-purple-600",
-      "cursor-pointer"
+      "cursor-pointer",
+      "hover:bg-purple-600",
+      "hover:text-white"
     );
-    // hover:bg-purple-600 hover:text-white
-    elem.classList.add("hover:bg-purple-600", "hover:text-white");
+
+    const day = dayjs().date(content);
+    if (day.day() === 0 || day.day() === 6) {
+      elem.classList.add("bg-purple-200");
+    }
+
+    if (day.isSame(dayjs(), "day")) {
+      elem.classList.add("bg-purple-600", "text-white");
+    }
     elem.innerHTML = content;
     this.calendarTarget.appendChild(elem);
   }
