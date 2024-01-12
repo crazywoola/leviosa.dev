@@ -1,18 +1,23 @@
 {
   "scripts": {
-    "dev": "wrangler dev src/index.ts",
-    "dev:fe": "esbuild src/client/index.js --bundle --outfile=assets/js/bundle.js --watch",
-    "build:fe": "esbuild src/client/index.js --bundle --minify --outfile=assets/js/bundle.js",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "dev": "wrangler dev api/index.ts",
+    "deploy": "wrangler deploy --minify api/index.ts",
+    "react:build": "node build.mjs",
+    "tailwind:watch": "npx tailwindcss -i ./src/index.css -o ./assets/css --watch",
+    "tailwind:build": "npx tailwindcss -i ./src/index.css -o ./assets/css --minify"
   },
   "dependencies": {
-    "@hotwired/stimulus": "^3.2.2",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
     "dayjs": "^1.11.10",
-    "hono": "^3.11.11"
+    "hono": "^3.11.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231218.0",
     "esbuild": "0.19.10",
+    "tailwindcss": "^3.4.1",
     "wrangler": "^3.22.1"
   }
 }
