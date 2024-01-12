@@ -2969,6 +2969,15 @@
   var info_ctrl_default = InfoController;
 
   // src/client/main_ctrl.js
+  var MainController = class extends Controller {
+    static targets = [];
+    static values = {};
+    connect() {
+    }
+  };
+  var main_ctrl_default = MainController;
+
+  // src/client/cal_ctrl.js
   var import_utc = __toESM(require_utc());
   var import_timezone = __toESM(require_timezone());
   var import_dayjs = __toESM(require_dayjs_min());
@@ -2978,7 +2987,7 @@
   import_dayjs.default.extend(import_utc.default);
   import_dayjs.default.extend(import_timezone.default);
   import_dayjs.default.tz.guess();
-  var MainController = class extends Controller {
+  var CalController = class extends Controller {
     static targets = [
       "calendar",
       "calendarMonth",
@@ -3054,11 +3063,12 @@
       this.calendarTarget.appendChild(elem);
     }
   };
-  var main_ctrl_default = MainController;
+  var cal_ctrl_default = CalController;
 
   // src/client/index.js
   window.Stimulus = Application.start();
   window.Stimulus.register("opening", opening_ctrl_default);
   window.Stimulus.register("info", info_ctrl_default);
   window.Stimulus.register("main", main_ctrl_default);
+  window.Stimulus.register("cal", cal_ctrl_default);
 })();
