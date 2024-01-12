@@ -2,18 +2,13 @@
   "scripts": {
     "dev": "wrangler dev api/index.ts",
     "deploy": "wrangler deploy --minify api/index.ts",
-    "react:watch": "export NODE_ENV=dev && node build.mjs",
-    "react:build": "node build.mjs",
     "tailwind:watch": "npx tailwindcss -i ./src/index.css -o ./assets/css/bundle.css --watch",
     "tailwind:build": "npx tailwindcss -i ./src/index.css -o ./assets/css/bundle.css --minify"
   },
   "dependencies": {
-    "@types/react": "^18.2.47",
-    "@types/react-dom": "^18.2.18",
+    "@hotwired/stimulus": "^3.2.2",
     "dayjs": "^1.11.10",
-    "hono": "^3.11.11",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "hono": "^3.11.11"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231218.0",
