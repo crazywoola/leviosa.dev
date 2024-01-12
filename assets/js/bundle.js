@@ -2990,7 +2990,10 @@
     connect() {
       const today = (0, import_dayjs.default)();
       const firstDayOfMonth = today.startOf("month");
-      const daysArray = Array.from({ length: today.daysInMonth() }, (_, i) => firstDayOfMonth.add(i, "day"));
+      const daysArray = Array.from(
+        { length: today.daysInMonth() },
+        (_, i) => firstDayOfMonth.add(i, "day")
+      );
       this.calendarMonthTarget.innerHTML = today.format("MMMM YYYY");
       const calendarDays = [
         ...WEEK_DAY_NAMES,
@@ -3024,7 +3027,10 @@
       }
       if (content instanceof import_dayjs.default) {
         elem.setAttribute("data-action", "click->main#show");
-        elem.setAttribute("data-main-day-param", content.format(DEFAULT_DATE_FORMAT));
+        elem.setAttribute(
+          "data-main-day-param",
+          content.format(DEFAULT_DATE_FORMAT)
+        );
         elem.classList.add(
           "text-purple-600",
           "hover:bg-purple-600",
