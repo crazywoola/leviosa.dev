@@ -12,3 +12,4 @@ pnpm-lock.yaml
 
 assets/js/*.js
 assets/css/*.css
+assets/auth_config.json
