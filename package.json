@@ -2,9 +2,10 @@
   "scripts": {
     "dev": "wrangler dev api/index.ts",
     "deploy": "wrangler deploy --minify api/index.ts",
+    "react:watch": "export NODE_ENV=dev && node build.mjs",
     "react:build": "node build.mjs",
-    "tailwind:watch": "npx tailwindcss -i ./src/index.css -o ./assets/css --watch",
-    "tailwind:build": "npx tailwindcss -i ./src/index.css -o ./assets/css --minify"
+    "tailwind:watch": "npx tailwindcss -i ./src/index.css -o ./assets/css/bundle.css --watch",
+    "tailwind:build": "npx tailwindcss -i ./src/index.css -o ./assets/css/bundle.css --minify"
   },
   "dependencies": {
     "@types/react": "^18.2.47",
