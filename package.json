@@ -2,6 +2,8 @@
   "scripts": {
     "dev": "wrangler dev api/index.ts",
     "deploy": "wrangler deploy --minify api/index.ts",
+    "fe:watch": "export NODE_ENV=development && node build.mjs",
+    "fe:build": "export NODE_ENV=production && node build.mjs",
     "tailwind:watch": "npx tailwindcss -i ./src/index.css -o ./assets/css/bundle.css --watch",
     "tailwind:build": "npx tailwindcss -i ./src/index.css -o ./assets/css/bundle.css --minify"
   },
