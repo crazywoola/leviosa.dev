@@ -2,46 +2,49 @@ import { Application, Controller } from "@hotwired/stimulus"
 import { createAuth0Client } from '@auth0/auth0-spa-js';
 
 window.Stimulus = Application.start()
+
+let auth0 = null;
 class MainController extends Controller {
-  static values = {
+  static targets = ['loginStatus']
+  static values = {}
+
+  async handleRedirectCallback() {
+    const query = window.location.search;
+    if (query.includes("code=") && query.includes("state=")) {
+      await auth0.handleRedirectCallback();
+      window.history.replaceState({}, document.title, "/");
+    }
+  }
+  async updateLoginStatus() {
+    if (auth0 !== null) {
+      if (await auth0.isAuthenticated())
+        this.loginStatusTarget.innerHTML = "Logged In"
+    } else {
+      this.loginStatusTarget.innerHTML = "Logged Out"
+    }
   }
 
-  auth0Client = null;
-
-  login = async () => {
-    await this.auth0Client.loginWithRedirect({
+  async connect() {
+    const resp = await fetch("/auth_config.json").then(resp => resp.json())
+    auth0 = await createAuth0Client({
+      domain: resp.domain,
+      clientId: resp.clientId,
       authorizationParams: {
         redirect_uri: window.location.origin
       }
-    });
+    })
+    await this.handleRedirectCallback()
+    await this.updateLoginStatus()
+  }
+  async login() {
+    if (auth0 !== null) {
+      await auth0.loginWithRedirect()
+    }
   }
 
-  connect = async () => {
-    console.log("Hello, Stimulus!");
-    const response = await fetch("/auth_config.json");
-    const config = await response.json();
-    this.auth0Client = await createAuth0Client({
-      domain: config.domain,
-      clientId: config.clientId
-    });
-
-    const query = window.location.search;
-    const shouldParseResult = query.includes("code=") && query.includes("state=");
-
-    if (shouldParseResult) {
-      console.log("> Parsing redirect");
-      try {
-        const result = await this.auth0Client.handleRedirectCallback();
-
-        if (result.appState && result.appState.targetUrl) {
-          console.log(result);
-        }
-        console.log("Logged in!");
-      } catch (err) {
-        console.log("Error parsing redirect:", err);
-      }
-
-      window.history.replaceState({}, document.title, "/");
+  async logout() {
+    if (auth0 !== null) {
+      await auth0.logout()
     }
   }
 }

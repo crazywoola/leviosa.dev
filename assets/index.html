@@ -12,13 +12,14 @@
     <script src="./js/bundle.js" defer></script>
   </head>
   <body>
-  <div 
+  <div
     class="flex flex-col items-center justify-center w-full h-full"
     data-controller="main"
   >
     <h1 class="text-3xl text-purple-700 font-bold">Leviosa.dev</h1>
+    <p class="" data-main-target="loginStatus"></p>
     <button data-action="click->main#login">Log in</button>
-    <button>Log out</button>
+    <button data-action="click->main#logout">Log out</button>
   </div>
   </body>
 </html>
