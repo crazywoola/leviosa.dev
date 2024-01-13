@@ -48,7 +48,7 @@ class MainController extends Controller {
       domain: resp.domain,
       clientId: resp.clientId,
       authorizationParams: {
-        redirectUri: window.location.origin
+        redirect_uri: window.location.origin
       }
     })
     await this.handleRedirectCallback()
@@ -62,8 +62,11 @@ class MainController extends Controller {
 
   async logout() {
     if (auth0 !== null) {
+      console.log(window.location.origin)
       await auth0.logout({
-        returnTo: window.location.origin
+        logoutParams: {
+          returnTo: window.location.origin
+        }
       })
     }
   }
