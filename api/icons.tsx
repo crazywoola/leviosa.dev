@@ -20,9 +20,9 @@ const GithubIcon = () => {
 const XIcon = () => {
   return <span>
     <a href="https://twitter.com/crazyphage" target="_blank">
-      <svg version="1.1" id="svg5" xmlns: svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
-        xmlns: xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1668.56 1221.19"
-        style="enable-background:new 0 0 1668.56 1221.19;" xml: space="preserve" width="20" height="20">
+      <svg version="1.1" id="svg5" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1668.56 1221.19"
+        style="enable-background:new 0 0 1668.56 1221.19;" xml:space="preserve" width="20" height="20">
         <g id="layer1" transform="translate(52.390088,-25.058597)">
           <path id="path1009"
             d="M283.94,167.31l386.39,516.64L281.5,1104h87.51l340.42-367.76L984.48,1104h297.8L874.15,558.3l361.92-390.99
@@ -72,6 +72,17 @@ const LittleRedBookIcon = () => {
     </a>
   </span>
 }
+
+icons.get('/all', (c) => {
+  return c.html(
+    <>
+      <GithubIcon />
+      <XIcon />
+      <LittleRedBookIcon />
+    </>
+  )
+});
+
 icons.get("/:name", (c) => {
   const name = c.req.param('name')
 
@@ -86,5 +97,7 @@ icons.get("/:name", (c) => {
       return c.html(<div>404</div>)
   }
 });
+
+
 
 export default icons;
